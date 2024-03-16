@@ -1,0 +1,81 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model operator {
+  id         Int     @id @default(autoincrement())
+  masterId   Int?
+  name       String
+  thumbnail  String?
+  uuid       String? @default(uuid())
+  slug       String  @unique
+  categoryId Int
+
+  category operator_category @relation(fields: [categoryId], references: [id])
+  product  product[]
+}
+
+model operator_category {
+  id       Int     @id @default(autoincrement())
+  masterId Int?
+  name     String
+  icon     String?
+  slug     String  @unique
+
+  operator operator[]
+}
+
+model product {
+  id                   Int     @id @default(autoincrement())
+  uuid                 String? @default(uuid())
+  name                 String
+  price                Int
+  masterPrice          Int
+  masterJenisProductId Int
+  masterProductId      Int
+  productCode          String  @unique
+  operatorId           Int
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  operator operator @relation(fields: [operatorId], references: [id])
+}
+
+model payment_method_category {
+  id   Int     @id @default(autoincrement())
+  uuid String? @unique @default(uuid())
+  name String
+
+  created_at     DateTime         @default(now())
+  updated_at     DateTime         @updatedAt
+  deleted_at     DateTime?
+  payment_method payment_method[]
+}
+
+model payment_method {
+  id          Int     @id @default(autoincrement())
+  uuid        String  @unique @default(uuid())
+  name        String
+  paymentCode String  @unique
+  isActive    Boolean @default(true)
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  categoryId String                  @unique @default(uuid())
+  category   payment_method_category @relation(fields: [categoryId], references: [uuid])
+}

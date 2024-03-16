@@ -1,0 +1,38 @@
+{
+  "name": "pasartopupbackend",
+  "version": "1.0.0",
+  "description": "Pasar Topup Backend",
+  "main": "main.js",
+  "scripts": {
+    "build": "npx tsc",
+    "start": "node dist/main.js",
+    "dev": "nodemon src/main.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "5.10.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "4.18.3",
+    "http-status-codes": "^2.3.0",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "4.17.21",
+    "@types/morgan": "^1.9.9",
+    "@types/node": "20.11.24",
+    "prisma": "5.10.2",
+    "ts-node": "10.9.2",
+    "typescript": "5.3.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pandaikaryaaplikasi/PasarTopupBackend.git"
+  },
+  "author": "Fahri Kurniawan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pandaikaryaaplikasi/PasarTopupBackend/issues"
+  },
+  "homepage": "https://github.com/pandaikaryaaplikasi/PasarTopupBackend#readme"
+}
